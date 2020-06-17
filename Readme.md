@@ -1,35 +1,27 @@
 # web-grpc
 After cloning the application, folder structure will be 
 ```
+├── Readme.md
 ├── client
 │   ├── client.js
+│   ├── dist
+│   │   └── main.js
 │   ├── echo_grpc_web_pb.js
 │   ├── echo_pb.js
 │   ├── echoapp.js
-│   ├── echotest.html
+│   ├── index.html
 │   ├── package-lock.json
 │   ├── package.json
 │   └── webpack.config.js
-├── client.js
-├── dist
-│   └── main.js
-├── echo.proto
 ├── envoy.Dockerfile
 ├── envoy.yaml
-├── helloworld.proto
-├── helloworld_grpc_web_pb.js
-├── helloworld_pb.js
-├── index.html
-├── package-lock.json
-├── package.json
-├── server
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── server.js
-│   ├── test.csv
-│   ├── test.txt
-│   └── test.xlsx
-└── server.js
+└── server
+    ├── package-lock.json
+    ├── package.json
+    ├── server.js
+    ├── test.csv
+    ├── test.txt
+    └── test.xlsx
 ```
 Steps to run the application:
 1. cd client and run `npm install`
