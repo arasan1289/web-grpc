@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package grpc.gateway.testing;
+
+message Empty {}
+
+message EchoRequest {
+  string message = 1;
+}
+
+message EchoResponse {
+  string message = 1;
+  int32 message_count = 2;
+}
+
+// Request type for server side streaming echo.
+message ServerStreamingEchoRequest {
+  // Message string for server streaming request.
+  string message = 1;
+
+  // The total number of messages to be generated before the server
+  // closes the stream; default is 10.
+  int32 message_count = 2;
+
+  // The interval (ms) between two server messages. The server implementation
+  // may enforce some minimum interval (e.g. 100ms) to avoid message overflow.
+  int32 message_interval = 3;
+}
+
+// Response type for server streaming response.
+message ServerStreamingEchoResponse {
+  // Response message.
+  string message = 1;
+}
+
+
+message ServerDownloadRequest {
+  string file_name = 1;
+}
+
+message ServerDownloadResponse {
+  bytes file_chunk = 1;
+  string file_name= 2;
+}
+
+// A simple echo service.
+service EchoService {
+  // rpc for download a static file from server
+  rpc Download (ServerDownloadRequest) returns (stream ServerDownloadResponse);
+
+  // One request followed by one response
+  // The server returns the client message as-is.
+  rpc Echo(EchoRequest) returns (EchoResponse);
+
+  // Sends back abort status.
+  rpc EchoAbort(EchoRequest) returns (EchoResponse) {}
+
+  // One request followed by a sequence of responses (streamed download).
+  // The server will return the same client message repeatedly.
+  rpc ServerStreamingEcho(ServerStreamingEchoRequest)
+      returns (stream ServerStreamingEchoResponse);
+}
